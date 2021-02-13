@@ -21,7 +21,7 @@ jobs:
       shell: cmd
       run: |
         cd zlib
-        cmake -G "Visual Studio 15" -A Win32
+        cmake -G "Visual Studio 16 2019" -A Win32
         "%MSBUILD_PATH%" /build Release zlib.sln
         cd ..
 
@@ -35,7 +35,7 @@ jobs:
       run: |
         mkdir build_leveldb
         cd build_leveldb
-        cmake -DZLIB_LIBRARY="..\zlib\Release\zlib"  -DZLIB_INCLUDE_DIR="..\zlib" -G "Visual Studio 15" -A Win32 ..\leveldb-mcpe
+        cmake -DZLIB_LIBRARY="..\zlib\Release\zlib"  -DZLIB_INCLUDE_DIR="..\zlib" -G "Visual Studio 16 2019" -A Win32 ..\leveldb-mcpe
         "%MSBUILD_PATH%" /build Release leveldb.sln
         cd ..
     
