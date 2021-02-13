@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy-win32:
+    runs-on: windows-latest
+    env:
+      MSBUILD_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com
+
+    steps:
+    - name: Checkout zlib
+      uses: actions/checkout@v2
+      with:
+        repository: madler/zlib
+        path: zlib
+
+    - name: Build zlib
+      shell: cmd
+      run: |
+        cd zlib
+        cmake -G "Visual Studio 15" -A Win32
+        "%MSBUILD_PATH%" /build Release zlib.sln
+        cd ..
+
+    - name: Checkout leveldb
+      uses: actions/checkout@v2
+      with:
+        path: leveldb-mcpe
+        
+    - name: Build leveldb
+      shell: cmd
+      run: |
+        mkdir build_leveldb
+        cd build_leveldb
+        cmake -DZLIB_LIBRARY="..\zlib\Release\zlib"  -DZLIB_INCLUDE_DIR="..\zlib" -G "Visual Studio 15" -A Win32 ..\leveldb-mcpe
+        "%MSBUILD_PATH%" /build Release leveldb.sln
+        cd ..
+    
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./build_leveldb/Release/leveldb.dll
+        asset_name: LevelDB-MCPE-32.dll
+        asset_content_type: dll
