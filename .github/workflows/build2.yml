@@ -8,8 +8,7 @@ jobs:
       # - uses: actions/checkout@v2
       - name: Install dependenicies
         run: |
-          yum -y install file gcc gcc-c++ cmake make zlib-devel
+          yum -y install file gcc gcc-c++ cmake make zlib-static
       - name: Test
         run: |
-          repoquery --list zlib
-          repoquery --list zlib-devel
+          repoquery --list zlib-static
