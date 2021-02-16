@@ -12,3 +12,8 @@ jobs:
       - name: Test
         run: |
           repoquery --list zlib-static
+      - name: Build
+        run: |
+          cmake -DZLIB_INCLUDE_DIR="/usr/include" -DZLIB_LIBRARY="/usr/lib/libz.a" .
+          cmake --build . --config Release
+          ls -R
