@@ -1,5 +1,9 @@
 name: Build
-on: push
+
+on:
+  release:
+    types: [published]
+
 jobs:
   linux:
     runs-on: ubuntu-latest
@@ -15,19 +19,29 @@ jobs:
           strip out-shared/libleveldb.so.1.20
           file out-shared/libleveldb.so.1.20
           ldd out-shared/libleveldb.so.1.20
-      - name: Upload
-        uses: actions/upload-artifact@v2
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: out-shared/libleveldb.so*
-          name: libleveldb.so
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: out-shared/libleveldb.so
+          asset_name: libleveldb.so
+          asset_content_type: so
   macos:
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
       - name: Build
         run: make
-      - name: Upload
-        uses: actions/upload-artifact@v2
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: out-shared/libleveldb.dylib*
-          name: libleveldb.dylib
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: out-shared/libleveldb.dylib
+          asset_name: libleveldb.dylib
+          asset_content_type: dylib
