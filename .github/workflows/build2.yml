@@ -19,7 +19,6 @@ jobs:
           path: zlib
 
       - name: Build zlib
-        shell: cmd
         run: |
           cd zlib
           cmake -GNinja
