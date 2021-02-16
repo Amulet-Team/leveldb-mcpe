@@ -5,13 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     container: centos:7
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Install dependenicies
         run: |
-          yum -y install file gcc gcc-c++ cmake make zlib-static
-      - name: Test
-        run: |
-          repoquery --list zlib-static
+          yum -y install file gcc gcc-c++ cmake make zlib-static zlib-devel
       - name: Build
         run: |
           cmake -DZLIB_INCLUDE_DIR="/usr/include" -DZLIB_LIBRARY="/usr/lib/libz.a" .
