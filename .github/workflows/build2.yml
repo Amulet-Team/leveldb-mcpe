@@ -33,4 +33,11 @@ jobs:
         run: |
           cmake -DZLIB_INCLUDE_DIR="zlib" -DZLIB_LIBRARY="/__w/leveldb-mcpe/leveldb-mcpe/zlib/libz.a" -GNinja leveldb-mcpe
           cmake --build . --config Release
-          ls -R
+          strip libleveldb.so
+          file libleveldb.so
+          ldd libleveldb.so
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          path: libleveldb.so
+          name: libleveldb-static.so
