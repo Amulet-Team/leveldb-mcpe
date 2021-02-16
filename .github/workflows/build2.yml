@@ -31,9 +31,7 @@ jobs:
         
       - name: Build leveldb
         run: |
-          mkdir build_leveldb
-          cd build_leveldb
-          cmake -DZLIB_INCLUDE_DIR="../zlib" -DZLIB_LIBRARY="../zlib/libz.a" -GNinja ../leveldb-mcpe
+          ls -R
+          cmake -DZLIB_INCLUDE_DIR="zlib" -DZLIB_LIBRARY="zlib/libz.a" -GNinja leveldb-mcpe
           cmake --build . --config Release
-          cd ..
           ls -R
