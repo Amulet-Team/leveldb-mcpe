@@ -8,11 +8,21 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependenicies
         run: |
-          yum -y install file gcc gcc-c++ make zlib-static zlib-devel unzip
+          yum -y install file gcc gcc-c++ make unzip
       - name: Install CMake
         uses: lukka/get-cmake@latest
-      - name: Build
+        
+      - name: Checkout zlib
+        uses: actions/checkout@v2
+        with:
+          repository: madler/zlib
+          path: zlib
+
+      - name: Build zlib
+        shell: cmd
         run: |
-          cmake -DZLIB_INCLUDE_DIR="/usr/include" -DZLIB_LIBRARY="/usr/lib/libz.a" .
+          cd zlib
+          cmake -GNinja
           cmake --build . --config Release
+          cd ..
           ls -R
