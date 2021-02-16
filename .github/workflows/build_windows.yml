@@ -7,9 +7,6 @@ on:
 jobs:
   deploy-win32:
     runs-on: windows-latest
-    env:
-      MSBUILD_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com
-
     steps:
     - name: Checkout zlib
       uses: actions/checkout@v2
@@ -22,7 +19,7 @@ jobs:
       run: |
         cd zlib
         cmake -G "Visual Studio 16 2019" -A Win32
-        "%MSBUILD_PATH%" /build Release zlib.sln
+        cmake --build . --config Release
         cd ..
 
     - name: Checkout leveldb
@@ -35,8 +32,8 @@ jobs:
       run: |
         mkdir build_leveldb
         cd build_leveldb
-        cmake -DZLIB_LIBRARY="..\zlib\Release\zlib"  -DZLIB_INCLUDE_DIR="..\zlib" -G "Visual Studio 16 2019" -A Win32 ..\leveldb-mcpe
-        "%MSBUILD_PATH%" /build Release leveldb.sln
+		cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A Win32 ..\leveldb-mcpe
+        cmake --build . --config Release
         cd ..
     
     - name: Upload Release Asset
@@ -52,9 +49,6 @@ jobs:
         
   deploy-win64:
     runs-on: windows-latest
-    env:
-      MSBUILD_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com
-
     steps:
     - name: Checkout zlib
       uses: actions/checkout@v2
@@ -67,7 +61,7 @@ jobs:
       run: |
         cd zlib
         cmake -G "Visual Studio 16 2019" -A x64
-        "%MSBUILD_PATH%" /build Release zlib.sln
+        cmake --build . --config Release
         cd ..
 
     - name: Checkout leveldb
@@ -80,8 +74,8 @@ jobs:
       run: |
         mkdir build_leveldb
         cd build_leveldb
-        cmake -DZLIB_LIBRARY="..\zlib\Release\zlib"  -DZLIB_INCLUDE_DIR="..\zlib" -G "Visual Studio 16 2019" -A x64 ..\leveldb-mcpe
-        "%MSBUILD_PATH%" /build Release leveldb.sln
+		cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A x64 ..\leveldb-mcpe
+        cmake --build . --config Release
         cd ..
     
     - name: Upload Release Asset
