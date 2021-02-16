@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir build_leveldb
         cd build_leveldb
-		cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A Win32 ..\leveldb-mcpe
+        cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A Win32 ..\leveldb-mcpe
         cmake --build . --config Release
         cd ..
     
@@ -74,7 +74,7 @@ jobs:
       run: |
         mkdir build_leveldb
         cd build_leveldb
-		cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A x64 ..\leveldb-mcpe
+        cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A x64 ..\leveldb-mcpe
         cmake --build . --config Release
         cd ..
     
