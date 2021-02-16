@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     container: centos:7
     steps:
-      - uses: actions/checkout@v2
       - name: Install dependenicies
         run: |
           yum -y install file gcc gcc-c++ make unzip
@@ -22,6 +21,19 @@ jobs:
         run: |
           cd zlib
           cmake -GNinja
+          cmake --build . --config Release
+          cd ..
+        
+      - name: Checkout leveldb
+        uses: actions/checkout@v2
+        with:
+          path: leveldb-mcpe
+        
+      - name: Build leveldb
+        run: |
+          mkdir build_leveldb
+          cd build_leveldb
+          cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\libz.a" -GNinja ..\leveldb-mcpe
           cmake --build . --config Release
           cd ..
           ls -R
