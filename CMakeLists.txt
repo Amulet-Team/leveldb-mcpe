@@ -1,3 +1,6 @@
+if (WIN32)
+	set (CMAKE_SYSTEM_VERSION 8.1 CACHE TYPE INTERNAL FORCE)
+endif()
 project(leveldb)
 cmake_minimum_required(VERSION 3.2)
 
