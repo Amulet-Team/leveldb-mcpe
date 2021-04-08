@@ -18,7 +18,7 @@ jobs:
       shell: cmd
       run: |
         cd zlib
-        cmake -G "Visual Studio 16 2019" -A Win32 -T v140
+        cmake -G "Visual Studio 16 2019" -A Win32 -T v140 -DIOWIN32_USING_WINRT_API=0
         cmake --build . --config Release
         cd ..
 
@@ -60,7 +60,7 @@ jobs:
       shell: cmd
       run: |
         cd zlib
-        cmake -G "Visual Studio 16 2019" -A x64 -T v140
+        cmake -G "Visual Studio 16 2019" -A x64 -T v140 -DIOWIN32_USING_WINRT_API=0
         cmake --build . --config Release
         cd ..
 
