@@ -1,5 +1,11 @@
-project(leveldb)
 cmake_minimum_required(VERSION 3.2)
+
+if (WIN32)
+	# set windows 7 as the minimum version
+	add_definitions(-D_WIN32_WINNT=0x0601)
+endif()
+
+project(leveldb)
 
 include(CheckCXXCompilerFlag)
 
