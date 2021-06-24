@@ -58,8 +58,7 @@ jobs:
       - name: Build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.7
-          export stdlib=libc++
-          make
+          make --makefile=Makefile -stdlib=libc++
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
