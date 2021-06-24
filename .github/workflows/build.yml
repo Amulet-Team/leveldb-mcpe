@@ -58,7 +58,7 @@ jobs:
       - name: Build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.7
-          make Makefile -stdlib=libc++
+          make Makefile -DDLLX= -I. -I./include -std=c++0x -DOS_MACOSX -DLEVELDB_PLATFORM_POSIX -DLEVELDB_ATOMIC_PRESENT -O2 -DNDEBUG -fPIC -c db/builder.cc -o out-shared/db/builder.o
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
