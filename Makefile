@@ -61,7 +61,6 @@ BENCHMARKS = \
 
 CFLAGS += -I. -I./include $(PLATFORM_CCFLAGS) $(OPT)
 CXXFLAGS += -DDLLX= -I. -I./include $(PLATFORM_CXXFLAGS) $(OPT)
-CXXFLAGS += -stdlib=libc++
 
 LDFLAGS += $(PLATFORM_LDFLAGS)
 LIBS += $(PLATFORM_LIBS) -lz
