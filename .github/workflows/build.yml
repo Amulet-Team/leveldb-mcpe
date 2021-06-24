@@ -58,7 +58,7 @@ jobs:
       - name: Build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.7
-          make
+          make -std=c++0x
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
