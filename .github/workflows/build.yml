@@ -58,7 +58,7 @@ jobs:
       - name: Build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.9
-          export ARCH=x86_64 arm64
+          export ARCH=arm64
           make
           lipo -info out-shared/libleveldb.dylib
       - name: Upload Release Asset
