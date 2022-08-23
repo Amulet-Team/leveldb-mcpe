@@ -34,10 +34,10 @@ jobs:
         cd build_leveldb
         cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A Win32 -T v140 ..\leveldb-mcpe
         cmake --build . --config Release
+        7z leveldb_mcpe_win32.zip Release
         cd ..
     
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload DLL
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,6 +46,16 @@ jobs:
         asset_path: ./build_leveldb/Release/leveldb.dll
         asset_name: leveldb_mcpe_win32.dll
         asset_content_type: dll
+
+    - name: Upload Archive
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./build_leveldb/leveldb_mcpe_win32.zip
+        asset_name: leveldb_mcpe_win32.zip
+        asset_content_type: application/zip
         
   deploy-win64:
     runs-on: windows-latest
@@ -76,10 +86,10 @@ jobs:
         cd build_leveldb
         cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 16 2019" -A x64 -T v140 ..\leveldb-mcpe
         cmake --build . --config Release
+        7z leveldb_mcpe_win_amd64.zip Release
         cd ..
     
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload DLL
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -88,3 +98,13 @@ jobs:
         asset_path: ./build_leveldb/Release/leveldb.dll
         asset_name: leveldb_mcpe_win_amd64.dll
         asset_content_type: dll
+
+    - name: Upload Archive
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./build_leveldb/leveldb_mcpe_win_amd64.zip
+        asset_name: leveldb_mcpe_win_amd64.zip
+        asset_content_type: application/zip
