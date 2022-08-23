@@ -34,7 +34,7 @@ jobs:
         cd build_leveldb
         cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 17 2022" -A Win32 -T v143 ..\leveldb-mcpe
         cmake --build . --config Release
-        7z leveldb_mcpe_win32.zip Release
+        7z a leveldb_mcpe_win32.zip ./Release/*
         cd ..
     
     - name: Upload DLL
@@ -86,7 +86,7 @@ jobs:
         cd build_leveldb
         cmake -DZLIB_INCLUDE_DIR="..\zlib" -DZLIB_LIBRARY="..\zlib\Release\zlibstatic.lib" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -G "Visual Studio 17 2022" -A x64 -T v143 ..\leveldb-mcpe
         cmake --build . --config Release
-        7z leveldb_mcpe_win_amd64.zip Release
+        7z a leveldb_mcpe_win_amd64.zip ./Release/*
         cd ..
     
     - name: Upload DLL
