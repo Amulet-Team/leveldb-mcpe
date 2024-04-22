@@ -315,7 +315,7 @@ namespace leveldb {
 					if (_fileSizeLow > 0 || _fileSizeHigh > 0)
 					{
                         OVERLAPPED overlapped = { };
-						if (!::LockFileEx(_file, 0, 0, _fileSizeLow, _fileSizeHigh, &overlapped))
+						if (!::LockFileEx(_file, 3, 0, _fileSizeLow, _fileSizeHigh, &overlapped))
 						{
 							Status s = GetLastWindowsError(fname);
 							throw IOException(s.ToString().c_str());
@@ -333,10 +333,13 @@ namespace leveldb {
 				if (_file != INVALID_HANDLE_VALUE)
 				{
 					if (_fileSizeLow > 0 || _fileSizeHigh > 0)
-						if (!::UnlockFileEx(_file, 0, _fileSizeLow, _fileSizeHigh, NULL))
+					{
+						OVERLAPPED overlapped = { };
+						if (!::UnlockFileEx(_file, 0, _fileSizeLow, _fileSizeHigh, &overlapped))
 						{
 							Status s = GetLastWindowsError(_fname);
 						}
+					}
 					CloseFile(_fname, _file);
 				}
 			}
