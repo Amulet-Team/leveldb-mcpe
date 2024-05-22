@@ -795,6 +795,7 @@ VersionSet::VersionSet(const std::string& dbname,
 }
 
 VersionSet::~VersionSet() {
+
   current_->Unref();
   assert(dummy_versions_.next_ == &dummy_versions_);  // List must be empty
   delete descriptor_log_;
@@ -933,6 +934,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   }
   
   if (current_lock_ == NULL) {
+
     s = env_->LockFile(CurrentFileName(dbname_), &current_lock_);
     if (!s.ok()) {
       return s;
